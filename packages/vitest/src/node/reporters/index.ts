@@ -63,12 +63,13 @@ export const ReportersMap = {
   'github-actions': GithubActionsReporter as typeof GithubActionsReporter,
 }
 
-export type BuiltinReporters = keyof typeof ReportersMap
+export type BuiltinReporters = keyof typeof ReportersMap | 'auto'
 
 export interface BuiltinReporterOptions {
   'default': DefaultReporterOptions
   'minimal': DefaultReporterOptions
   'agent': DefaultReporterOptions
+  'auto': DefaultReporterOptions
   'verbose': DefaultReporterOptions
   'dot': BaseOptions
   'tree': BaseOptions

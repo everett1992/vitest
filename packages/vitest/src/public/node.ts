@@ -41,7 +41,6 @@ export { TypecheckPoolWorker } from '../node/pools/workers/typecheckWorker'
 export { VmForksPoolWorker } from '../node/pools/workers/vmForksWorker'
 export { VmThreadsPoolWorker } from '../node/pools/workers/vmThreadsWorker'
 export type { SerializedTestProject, TestProject } from '../node/project'
-
 export {
   AgentReporter,
   BenchmarkReporter,
@@ -59,6 +58,7 @@ export {
   VerboseBenchmarkReporter,
   VerboseReporter,
 } from '../node/reporters'
+
 export type {
   BaseReporter,
   BenchmarkBuiltinReporters,
@@ -74,8 +74,8 @@ export type {
 export type { HTMLOptions } from '../node/reporters/html'
 export type { JsonOptions } from '../node/reporters/json'
 export type { JUnitOptions } from '../node/reporters/junit'
-
 export type { Report } from '../node/reporters/report'
+
 export type {
   ModuleDiagnostic,
   TaskOptions,
@@ -95,15 +95,14 @@ export type {
 } from '../node/reporters/reported-tasks'
 export { experimental_getRunnerTask } from '../node/reporters/reported-tasks'
 export { BaseSequencer } from '../node/sequencers/BaseSequencer'
-
 export type {
   TestSequencer,
   TestSequencerConstructor,
 } from '../node/sequencers/types'
+
 export { registerConsoleShortcuts } from '../node/stdin'
 export type { TestSpecification, TestSpecificationOptions } from '../node/test-specification'
 export type { BenchmarkUserOptions } from '../node/types/benchmark'
-
 export type {
   _BrowserNames,
   BrowserBuiltinProvider,
@@ -127,7 +126,7 @@ export type {
   ToMatchScreenshotComparators,
   ToMatchScreenshotOptions,
 } from '../node/types/browser'
-export const createViteServer: typeof vite.createServer = vite.createServer
+
 export type {
   ApiConfig,
   BuiltinEnvironment,
@@ -150,6 +149,7 @@ export type {
   VitestEnvironment,
   VitestRunMode,
 } from '../node/types/config'
+export const createViteServer: typeof vite.createServer = vite.createServer
 export type {
   BaseCoverageOptions,
   CoverageInstrumenter,
@@ -164,14 +164,13 @@ export type {
   ReportContext,
   ResolvedCoverageOptions,
 } from '../node/types/coverage'
-
 export type { VitestPluginContext } from '../node/types/plugin'
+
 export type { TestRunResult } from '../node/types/tests'
 export type { WorkerContext } from '../node/types/worker'
 export { isFileServingAllowed } from '../node/vite'
 export { createViteLogger } from '../node/viteLogger'
 export type { WatcherTriggerPattern } from '../node/watcher'
-
 export { distDir, rootDir } from '../paths'
 
 export type {
@@ -184,7 +183,9 @@ export type {
 } from '../typecheck/types'
 
 export type { TestExecutionMethod as TestExecutionType } from '../types/worker'
+
 export { createDebugger } from '../utils/debugger'
+export { isAgent } from '../utils/env'
 export type {
   RunnerTask,
   RunnerTaskResult,

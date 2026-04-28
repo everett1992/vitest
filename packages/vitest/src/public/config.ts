@@ -19,6 +19,7 @@ export {
   defaultInclude,
 } from '../defaults'
 export type { WatcherTriggerPattern } from '../node/watcher'
+export { isAgent } from '../utils/env'
 export type { TestTagDefinition } from '@vitest/runner'
 export { mergeConfig } from 'vite'
 export type { Plugin } from 'vite'

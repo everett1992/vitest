@@ -3,7 +3,8 @@ import type { Vitest } from '../core'
 import type { ResolvedConfig } from '../types/config'
 import type { Reporter } from '../types/reporter'
 import type { BlobReporter } from './blob'
-import type { BenchmarkBuiltinReporters, BenchmarkReporter, BuiltinReporters, DefaultReporter, DotReporter, GithubActionsReporter, HangingProcessReporter, JsonReporter, JUnitReporter, TapReporter } from './index'
+import type { BenchmarkBuiltinReporters, BenchmarkReporter, DefaultReporter, DotReporter, GithubActionsReporter, HangingProcessReporter, JsonReporter, JUnitReporter, TapReporter } from './index'
+import { isAgent } from '../../utils/env'
 import { BenchmarkReportsMap, ReportersMap } from './index'
 
 async function loadCustomReporterModule<C extends Reporter>(
@@ -40,7 +41,10 @@ function createReporters(
   const promisedReporters = reporterReferences.map(
     async (referenceOrInstance) => {
       if (Array.isArray(referenceOrInstance)) {
-        const [reporterName, reporterOptions] = referenceOrInstance
+        const [rawReporterName, reporterOptions] = referenceOrInstance
+        const reporterName = rawReporterName === 'auto'
+          ? (isAgent ? 'agent' : 'default')
+          : rawReporterName
 
         if (reporterName === 'html') {
           await ctx.packageInstaller.ensureInstalled('@vitest/ui', ctx.config.root, ctx.version)
@@ -52,7 +56,7 @@ function createReporters(
         }
         else if (reporterName in ReportersMap) {
           const BuiltinReporter
-            = ReportersMap[reporterName as BuiltinReporters]
+            = ReportersMap[reporterName as keyof typeof ReportersMap]
           return new BuiltinReporter(reporterOptions)
         }
         else {

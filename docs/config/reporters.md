@@ -43,6 +43,7 @@ Note that the [coverage](/guide/coverage) feature uses a different [`coverage.re
 - [`hanging-process`](/guide/reporters#hanging-process-reporter)
 - [`github-actions`](/guide/reporters#github-actions-reporter)
 - [`minimal`](/guide/reporters#minimal-reporter) (aliased as `agent`)
+- [`auto`](/guide/reporters#auto-reporter)
 - [`blob`](/guide/reporters#blob-reporter)
 
 ## Example

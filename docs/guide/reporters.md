@@ -99,7 +99,7 @@ This example will write separate JSON and XML reports as well as printing a verb
 By default (i.e. if no reporter is specified), Vitest will display summary of running tests and their status at the bottom. Once a suite passes, its status will be reported on top of the summary.
 
 ::: tip
-When Vitest detects it is running inside an AI coding agent, the [`minimal`](#minimal-reporter) reporter is used instead to reduce output and minimize token usage. You can override this by explicitly configuring the [`reporters`](/config/reporters) option.
+When Vitest detects it is running inside an AI coding agent, the [`minimal`](#minimal-reporter) reporter is used instead to reduce output and minimize token usage. You can override this by explicitly configuring the [`reporters`](/config/reporters) option. If you want to keep the automatic detection while adding other reporters, use the [`auto`](#auto-reporter) reporter.
 :::
 
 You can disable the summary by configuring the reporter:
@@ -662,7 +662,7 @@ export default defineConfig({
 Outputs a minimal report containing only failed tests and their error messages. Console logs from passing tests and the summary section are also suppressed.
 
 ::: tip Agent Reporter
-This reporter is well optimized for AI coding assistants and LLM-based workflows to reduce token usage. It is automatically enabled when no `reporters` option is configured and Vitest detects it is running inside an AI coding agent. If you configure custom reporters, you can explicitly add `minimal` or `agent`:
+This reporter is well optimized for AI coding assistants and LLM-based workflows to reduce token usage. It is automatically enabled when no `reporters` option is configured and Vitest detects it is running inside an AI coding agent. If you configure custom reporters, you can use the [`auto`](#auto-reporter) reporter to keep the automatic detection, or explicitly add `minimal` or `agent`:
 
 :::code-group
 ```bash [CLI]
@@ -677,6 +677,38 @@ export default defineConfig({
 })
 ```
 :::
+
+### Auto Reporter
+
+Resolves to the [`default`](#default-reporter) reporter in normal environments, or the [`minimal`](#minimal-reporter) reporter when running inside an AI coding agent. This is the reporter Vitest uses when no `reporters` option is configured.
+
+Use `auto` when you want to add other reporters alongside the environment-aware default:
+
+:::code-group
+```bash [CLI]
+npx vitest --reporter=auto --reporter=json
+```
+
+```ts [vitest.config.ts]
+export default defineConfig({
+  test: {
+    reporters: ['auto', 'json']
+  },
+})
+```
+:::
+
+You can also use the exported `isAgent` boolean from `vitest/config` or `vitest/node` to write your own conditional logic:
+
+```ts [vitest.config.ts]
+import { defineConfig, isAgent } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    reporters: [isAgent ? 'agent' : 'verbose', 'json']
+  },
+})
+```
 
 ### Blob Reporter
 

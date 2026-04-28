@@ -87,6 +87,41 @@ describe('agent reporter', async () => {
   })
 }, 120000)
 
+describe('auto reporter', async () => {
+  test('resolves to default reporter in non-agent environment', async () => {
+    const { stdout } = await runVitest({
+      include: ['b1.test.ts', 'b2.test.ts'],
+      root: 'fixtures/reporters/default',
+      reporters: [['auto', {}]],
+      fileParallelism: false,
+      sequence: {
+        sequencer: StableTestFileOrderSorter,
+      },
+    })
+
+    const output = trimReporterOutput(stdout)
+    // default reporter shows passed tests (unlike agent which hides them)
+    expect(output).toContain('✓ b1 test')
+    expect(output).toContain('× b failed test')
+  })
+
+  test('can be combined with other reporters', async () => {
+    const { stdout } = await runVitest({
+      include: ['b1.test.ts', 'b2.test.ts'],
+      root: 'fixtures/reporters/default',
+      reporters: [['auto', {}], new LogReporter()],
+      fileParallelism: false,
+      sequence: {
+        sequencer: StableTestFileOrderSorter,
+      },
+    })
+
+    const output = trimReporterOutput(stdout)
+    expect(output).toContain('✓ b1 test')
+    expect(output).toContain('× b failed test')
+  })
+})
+
 class LogReporter extends DefaultReporter {
   isTTY = true
 }

@@ -392,7 +392,7 @@ Vitest automatically enables this reporter when it detects it's running inside a
 AI_AGENT=copilot vitest
 ```
 
-If you configure custom reporters, the automatic detection is skipped, so add `'agent'` to the list manually if you want both.
+If you configure custom reporters, the automatic detection is skipped, so add `'auto'` (or `'agent'`) to the list manually if you want both.
 
 ## New `mockThrow` API
 

@@ -517,3 +517,17 @@ When Vitest detects it is running inside an AI coding agent, it automatically ad
 - The [`text-summary`](/config/coverage#coverage-reporter) reporter is added automatically, so the agent always sees a concise totals table even when `skipFull` hides all individual files.
 
 These adjustments only apply when the `text` reporter is already part of the active reporter list (it is included in the default). Explicitly configured reporters are never removed.
+
+You can use the `isAgent` boolean exported from `vitest/config` to apply your own conditional coverage settings:
+
+```ts [vitest.config.ts]
+import { defineConfig, isAgent } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    coverage: {
+      reporter: isAgent ? ['text-summary'] : ['text', 'html'],
+    },
+  },
+})
+```
